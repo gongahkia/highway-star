@@ -7,16 +7,13 @@ import javax.swing.*;
 // import com.google.firebase.database.*;
 
 public class HistoryWindow extends JFrame {
-    // private final DatabaseReference historyRef;
 
     public HistoryWindow(String uid) {
-        // historyRef = Main.dbRef.child("users").child(uid).child("history");
 
         setTitle("Activity History");
         setSize(800, 600);
         setLocationRelativeTo(null);
 
-        // Top navbar with back to dashboard button
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         JButton backBtn = new JButton("Back to Dashboard");
         backBtn.addActionListener(e -> {
@@ -26,7 +23,6 @@ public class HistoryWindow extends JFrame {
         topPanel.add(backBtn);
         add(topPanel, BorderLayout.NORTH);
 
-        // Table to display history
         JTable historyTable = new JTable();
         JScrollPane scrollPane = new JScrollPane(historyTable);
         add(scrollPane, BorderLayout.CENTER);
@@ -52,7 +48,6 @@ public class HistoryWindow extends JFrame {
         });
         */
 
-        // --- Hardcoded data for past week (for demo/testing) ---
         List<HistoryEntry> entries = new ArrayList<>();
         entries.add(new HistoryEntry("2025-04-29", 4500));
         entries.add(new HistoryEntry("2025-04-30", 5200));
@@ -61,10 +56,11 @@ public class HistoryWindow extends JFrame {
         entries.add(new HistoryEntry("2025-05-03", 6500));
         entries.add(new HistoryEntry("2025-05-04", 7200));
         entries.add(new HistoryEntry("2025-05-05", 8000));
+        entries.add(new HistoryEntry("2025-05-06", 0));
 
         updateTable(historyTable, entries);
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE); // Close only this window
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
     }
 
     private void updateTable(JTable table, List<HistoryEntry> entries) {
@@ -82,7 +78,7 @@ public class HistoryWindow extends JFrame {
     }
 
     private String getStars(int steps) {
-        int starCount = steps / 5000; // 1 star per 5000 steps
+        int starCount = steps / 5000; 
         return "★".repeat(starCount);
     }
 

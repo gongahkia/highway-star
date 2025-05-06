@@ -2,7 +2,7 @@
 
 # `Highway Star`
 
-*"We have [Strava](https://www.strava.com/) at home."*
+*"We have [Strava](https://www.strava.com/) at home"*, featuring IP-based geolocation, activity recording and basic account management.
 
 Made to refamiliarise myself with [Java and friends](#stack).
 

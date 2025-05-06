@@ -11,17 +11,13 @@ public class ProfileWindow extends JFrame {
     private final JTextField emailField = new JTextField(25);
     private final JPasswordField oldPassField = new JPasswordField(20);
     private final JPasswordField newPassField = new JPasswordField(20);
-
     public ProfileWindow(String uid) {
         this.uid = uid;
         this.userRef = Main.dbRef.child("users").child(uid);
-
         setTitle("Profile");
         setLayout(new BorderLayout());
         setSize(400, 300);
         setLocationRelativeTo(null);
-
-        // Top panel with both Back and Logout buttons, right-aligned
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         JButton backBtn = new JButton("Back to Dashboard");
         backBtn.addActionListener(e -> {
@@ -36,10 +32,8 @@ public class ProfileWindow extends JFrame {
         topPanel.add(backBtn);
         topPanel.add(logoutBtn);
         add(topPanel, BorderLayout.NORTH);
-
         JPanel centerPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
         try {
             UserRecord user = FirebaseAuth.getInstance().getUser(uid);
             emailField.setText(user.getEmail());
@@ -49,20 +43,15 @@ public class ProfileWindow extends JFrame {
         }
         centerPanel.add(new JLabel("Email:"));
         centerPanel.add(emailField);
-
         centerPanel.add(new JLabel("Old Password:"));
         centerPanel.add(oldPassField);
-
         centerPanel.add(new JLabel("New Password:"));
         centerPanel.add(newPassField);
-
         JButton changePassBtn = new JButton("Change Password");
         changePassBtn.addActionListener(e -> changePassword());
-        centerPanel.add(new JLabel()); // Empty cell
+        centerPanel.add(new JLabel()); 
         centerPanel.add(changePassBtn);
-
         add(centerPanel, BorderLayout.CENTER);
-
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -70,7 +59,6 @@ public class ProfileWindow extends JFrame {
         String email = emailField.getText();
         String oldPass = new String(oldPassField.getPassword());
         String newPass = new String(newPassField.getPassword());
-
         if (oldPass.isEmpty() || newPass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Fill in both password fields.");
             return;
