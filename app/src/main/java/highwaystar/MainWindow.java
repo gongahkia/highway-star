@@ -15,12 +15,21 @@ public class MainWindow extends JFrame {
         setTitle("Highway Star - Dashboard");
         setLayout(new BorderLayout());
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10)); // Added spacing
         JButton profileBtn = new JButton("Profile");
+        JButton historyBtn = new JButton("History"); // New button
+
         profileBtn.addActionListener(e -> {
             new ProfileWindow(uid).setVisible(true);
             this.dispose();
         });
+
+        historyBtn.addActionListener(e -> {
+            new HistoryWindow(uid).setVisible(true);
+            this.dispose();
+        });
+
+        topPanel.add(historyBtn); // Add history button first
         topPanel.add(profileBtn);
         add(topPanel, BorderLayout.NORTH);
 
