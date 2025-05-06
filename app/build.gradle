@@ -1,0 +1,25 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+application {
+    mainClass = 'highwaystar.Main'
+}
+
+repositories { mavenCentral() }
+
+dependencies {
+    implementation 'com.google.firebase:firebase-admin:9.2.0'
+    implementation 'com.formdev:flatlaf:3.4.1' // Modern UI theme
+    implementation 'com.google.code.gson:gson:2.10.1' // JSON serialization
+}
+
+// Add this block to handle resources
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
