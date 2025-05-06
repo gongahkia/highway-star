@@ -1,9 +1,6 @@
 package highwaystar;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.net.URI;
 import javax.swing.*;
 import com.google.firebase.auth.*;
 
@@ -20,12 +17,12 @@ public class AuthWindow extends JFrame {
         // Main form panel
         JPanel formPanel = new JPanel(new GridLayout(3, 2, 5, 5));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
+
         formPanel.add(new JLabel("Email:"));
         formPanel.add(emailField);
         formPanel.add(new JLabel("Password:"));
         formPanel.add(passField);
-        
+
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> registerUser());
         formPanel.add(registerBtn);
@@ -36,30 +33,9 @@ public class AuthWindow extends JFrame {
 
         add(formPanel, BorderLayout.CENTER);
 
-        // Footer with links
+        // Footer with underlined name (no links)
         JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel footerLabel = new JLabel("<html><center>Made with ❤️ by <u>Gabriel Ong</u>. Source code <u>here</u>.</center></html>");
-        footerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
-        footerLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    int clickX = e.getX();
-                    // Gabriel Ong link (first part of text)
-                    if(clickX < 100) { 
-                        Desktop.getDesktop().browse(new URI("https://gabrielongzm.com"));
-                    } 
-                    // GitHub link
-                    else { 
-                        Desktop.getDesktop().browse(new URI("https://github.com/gongahkia/highway-star"));
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
+        JLabel footerLabel = new JLabel("<html><center>Made with ❤️ by <u>Gabriel Ong</u>.</center></html>");
         footerPanel.add(footerLabel);
         add(footerPanel, BorderLayout.SOUTH);
     }
@@ -69,7 +45,7 @@ public class AuthWindow extends JFrame {
             UserRecord.CreateRequest req = new UserRecord.CreateRequest()
                 .setEmail(emailField.getText())
                 .setPassword(new String(passField.getPassword()));
-            
+
             UserRecord user = FirebaseAuth.getInstance().createUser(req);
             JOptionPane.showMessageDialog(this, "Registration successful!");
             new MainWindow(user.getUid()).setVisible(true);
