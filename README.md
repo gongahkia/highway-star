@@ -22,6 +22,8 @@ Made to refamiliarise myself with [Java and friends](#stack).
 
 ## Usage
 
+First create a [Google Developer Account](https://developers.google.com/).
+
 ...
 
 Then run the below.
