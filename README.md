@@ -22,7 +22,27 @@ Made to refamiliarise myself with [Java and friends](#stack).
 
 ## Screenshots
 
-...
+### Login/Registration
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="./asset/reference/1.png" width="49%">
+  <img src="./asset/reference/2.png" width="49%">
+</div>
+
+### Dashboard
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="./asset/reference/3.png" width="49%">
+  <img src="./asset/reference/4.png" width="49%">
+</div>
+
+### Activity History
+
+![](./asset/reference/5.png)
+
+### Profile Management
+
+![](./asset/reference/6.png)
 
 ## Usage
 
