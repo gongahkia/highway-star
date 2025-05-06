@@ -68,7 +68,7 @@ public class HistoryWindow extends JFrame {
     }
 
     private void updateTable(JTable table, List<HistoryEntry> entries) {
-        String[] columnNames = {"Date", "Steps", "Stars"};
+        String[] columnNames = {"Date", "Steps", "Trophies"};
         Object[][] data = new Object[entries.size()][3];
         for (int i = 0; i < entries.size(); i++) {
             HistoryEntry entry = entries.get(i);
