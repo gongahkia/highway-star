@@ -31,7 +31,7 @@ public class HistoryWindow extends JFrame {
         JScrollPane scrollPane = new JScrollPane(historyTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Commented out Firebase fetching
+        // --- Uncomment this block to fetch real data from Firebase ---
         /*
         historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -52,7 +52,7 @@ public class HistoryWindow extends JFrame {
         });
         */
 
-        // Hardcoded data for past week
+        // --- Hardcoded data for past week (for demo/testing) ---
         List<HistoryEntry> entries = new ArrayList<>();
         entries.add(new HistoryEntry("2025-04-29", 4500));
         entries.add(new HistoryEntry("2025-04-30", 5200));
@@ -68,15 +68,22 @@ public class HistoryWindow extends JFrame {
     }
 
     private void updateTable(JTable table, List<HistoryEntry> entries) {
-        String[] columnNames = {"Date", "Steps"};
-        Object[][] data = new Object[entries.size()][2];
+        String[] columnNames = {"Date", "Steps", "Stars"};
+        Object[][] data = new Object[entries.size()][3];
         for (int i = 0; i < entries.size(); i++) {
-            data[i][0] = entries.get(i).date;
-            data[i][1] = entries.get(i).steps;
+            HistoryEntry entry = entries.get(i);
+            data[i][0] = entry.date;
+            data[i][1] = entry.steps;
+            data[i][2] = getStars(entry.steps);
         }
         SwingUtilities.invokeLater(() -> 
             table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames))
         );
+    }
+
+    private String getStars(int steps) {
+        int starCount = steps / 5000; // 1 star per 5000 steps
+        return "★".repeat(starCount);
     }
 
     private static class HistoryEntry {
