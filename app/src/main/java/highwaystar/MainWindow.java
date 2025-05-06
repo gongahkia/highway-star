@@ -6,6 +6,7 @@ import javax.swing.*;
 import org.jxmapviewer.*;
 import org.jxmapviewer.viewer.*;
 import com.google.firebase.database.*;
+import org.jxmapviewer.viewer.wms.*;
 
 public class MainWindow extends JFrame {
     private int stepCount = 0;
@@ -36,12 +37,14 @@ public class MainWindow extends JFrame {
         JSplitPane splitPane = new JSplitPane();
         splitPane.setDividerLocation(400);
 
-        // Map Panel
+        // Map Panel with OpenStreetMap
         mapKit = new JXMapKit();
-        mapKit.setTileSource(new DefaultTileSource("MapQuest",
-            "https://otile1.mqcdn.com/tiles/1.0.0/map/{zoom}/{x}/{y}.jpg", 256));
+        WMSService wmsService = new WMSService();
+        wmsService.setBaseUrl("https://tile.openstreetmap.org");
+        WMSTileFactory tileFactory = new WMSTileFactory(wmsService);
+        mapKit.setTileFactory(tileFactory);
         mapKit.setZoom(14);
-        mapKit.setAddressLocation(new GeoPosition(1.3521, 103.8198)); // Singapore coordinates
+        mapKit.setAddressLocation(new GeoPosition(1.3521, 103.8198)); // Singapore
         
         // Steps Panel
         JPanel stepsPanel = new JPanel(new BorderLayout());
@@ -69,13 +72,11 @@ public class MainWindow extends JFrame {
     }
 
     private void updateSteps() {
-        userRef.child("steps").setValueAsync(++stepCount, (dbError, dbRef) -> {
-            if(dbError != null) {
-                JOptionPane.showMessageDialog(this, "Sync failed: " + dbError.getMessage());
-            }
-        });
-        stepsLabel.setText(String.format("<html>Steps: %d<br/>Stars: %s</html>", 
-            stepCount, "★".repeat(stepCount / 5000)));
+        userRef.child("steps").setValueAsync(++stepCount)
+            .addListener(() -> {
+                stepsLabel.setText(String.format("<html>Steps: %d<br/>Stars: %s</html>", 
+                    stepCount, "★".repeat(stepCount / 5000)));
+            }, SwingUtilities::invokeLater);
     }
 
     private void loadInitialSteps() {
