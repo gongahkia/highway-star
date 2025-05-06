@@ -3,3 +3,5 @@ build
 .env
 .env.local
 serviceAccountKey.json
+myenv
+__pycache__

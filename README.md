@@ -16,10 +16,6 @@ Made to refamiliarise myself with [Java and friends](#stack).
 
 ![](./asset/reference/architecture.png)
 
-## GIFs
-
-...
-
 ## Screenshots
 
 ### Login/Registration
@@ -48,7 +44,9 @@ Made to refamiliarise myself with [Java and friends](#stack).
 
 First create a [Google Developer Account](https://developers.google.com/).
 
-...
+Then *Create a Firebase project* in [Firebase Console](https://console.firebase.google.com) and navigate to *Project Overview > Project settings > Service accounts > Java*. 
+
+*Generate new private key* and save the downloaded file at the filepath `./highway-star/app/src/main/resources/serviceAccountKey.json`.
 
 Then run the below.
 
@@ -59,7 +57,7 @@ $ cd highway-star && make
 
 ## Other notes
 
-No hate, but respectfully, [Java Swing]() is [so ugly](https://www.reddit.com/r/javahelp/comments/173nl4d/getting_really_frustrated_with_swing_is_there_a/). I might really have to take [Reddit's advice](https://www.reddit.com/r/JavaFX/comments/18n3sjt/why_javafx_is_still_used_in_2023/) and look into [JavaFX](https://openjfx.io/) instead.
+[No hate](./asset/logo/none.jpg), but respectfully, [Java Swing]() is [so ugly](https://www.reddit.com/r/javahelp/comments/173nl4d/getting_really_frustrated_with_swing_is_there_a/). I might really have to take [Reddit's advice](https://www.reddit.com/r/JavaFX/comments/18n3sjt/why_javafx_is_still_used_in_2023/) and look into [JavaFX](https://openjfx.io/) instead.
 
 ## Reference
 
