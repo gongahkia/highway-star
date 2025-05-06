@@ -1,11 +1,13 @@
+[![](https://img.shields.io/badge/highway_star_1.0.0-passing-green)](https://github.com/gongahkia/highway-star/releases/tag/1.0.0) 
+
 # `Highway Star`
 
 ...
 
 ## Stack
 
-* *Frontend*: ...
-* *Backend*: ...
+* *Frontend*: [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/index.html)
+* *Backend*: [Java](https://www.java.com/en/)
 * *DB*: [Firebase Realtime Database](https://firebase.google.com/docs/database)
 
 ## Architecture
@@ -19,10 +21,9 @@
 ## Usage
 
 ```console
-$ 
+$ git clone https://github.com/gongahkia/highway-star
+$ cd highway-star && ./gradlew :app:clean :app:run --no-daemon
 ```
-
-...
 
 ## Reference
 
