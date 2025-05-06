@@ -14,7 +14,7 @@ public class AuthWindow extends JFrame {
         setSize(400, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        JLabel headingLabel = new JLabel("Highway Star", SwingConstants.CENTER);
+        JLabel headingLabel = new JLabel("Highway Star 🛣️", SwingConstants.CENTER);
         headingLabel.setFont(new Font("Arial", Font.BOLD, 32));
         add(headingLabel, BorderLayout.NORTH);
 

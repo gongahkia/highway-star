@@ -54,6 +54,15 @@ public class ProfileWindow extends JFrame {
         centerPanel.add(new JLabel()); // Empty cell
         centerPanel.add(changePassBtn);
 
+        // Add Back to Dashboard button
+        JButton backBtn = new JButton("Back to Dashboard");
+        backBtn.addActionListener(e -> {
+            new MainWindow(uid).setVisible(true);
+            this.dispose();
+        });
+        centerPanel.add(new JLabel()); // Empty cell for alignment
+        centerPanel.add(backBtn);
+
         add(centerPanel, BorderLayout.CENTER);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);

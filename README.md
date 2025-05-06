@@ -20,6 +20,10 @@
 
 ## Usage
 
+...
+
+Then run the below.
+
 ```console
 $ git clone https://github.com/gongahkia/highway-star
 $ cd highway-star && ./gradlew :app:clean :app:run --no-daemon
