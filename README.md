@@ -16,6 +16,10 @@ Made to refamiliarise myself with [Java and friends](#stack).
 
 ![](./asset/reference/architecture.png)
 
+## GIFs
+
+...
+
 ## Screenshots
 
 ...
