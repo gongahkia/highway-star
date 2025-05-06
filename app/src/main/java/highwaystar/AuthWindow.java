@@ -14,6 +14,10 @@ public class AuthWindow extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        JLabel headingLabel = new JLabel("Highway Star", SwingConstants.CENTER);
+        headingLabel.setFont(new Font("Arial", Font.BOLD, 32));
+        add(headingLabel, BorderLayout.NORTH);
+
         JPanel formPanel = new JPanel(new GridLayout(3, 2, 5, 5));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
