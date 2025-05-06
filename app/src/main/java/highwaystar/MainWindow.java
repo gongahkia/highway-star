@@ -47,9 +47,12 @@ public class MainWindow extends JFrame {
 
         topPanel.add(historyBtn);
         topPanel.add(profileBtn);
-        add(topPanel, BorderLayout.NORTH);
-
-        // Main Content Panel
+        JLabel headingLabel = new JLabel("Highway Star 🛣️", SwingConstants.CENTER);
+        headingLabel.setFont(new Font("Arial", Font.BOLD, 32));
+        JPanel northPanel = new JPanel(new BorderLayout());
+        northPanel.add(headingLabel, BorderLayout.NORTH);
+        northPanel.add(topPanel, BorderLayout.SOUTH);
+        add(northPanel, BorderLayout.NORTH);
         JSplitPane splitPane = new JSplitPane();
         splitPane.setDividerLocation(400);
 
