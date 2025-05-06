@@ -15,7 +15,6 @@ public class MainWindow extends JFrame {
         setTitle("Highway Star - Dashboard");
         setLayout(new BorderLayout());
 
-        // Top panel for logout button
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton logoutBtn = new JButton("Logout");
         logoutBtn.addActionListener(e -> {
@@ -25,17 +24,15 @@ public class MainWindow extends JFrame {
         topPanel.add(logoutBtn);
         add(topPanel, BorderLayout.NORTH);
 
-        // Steps label
         JLabel stepsLabel = new JLabel("Steps: 0", SwingConstants.CENTER);
         stepsLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(stepsLabel, BorderLayout.CENTER);
 
-        // Add Step button
         JButton stepBtn = new JButton("Add Step");
         stepBtn.addActionListener(e -> updateSteps(stepsLabel));
         add(stepBtn, BorderLayout.SOUTH);
 
-        setSize(400, 200);
+        setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

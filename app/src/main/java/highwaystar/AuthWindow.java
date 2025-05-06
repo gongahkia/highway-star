@@ -9,12 +9,11 @@ public class AuthWindow extends JFrame {
     private final JPasswordField passField = new JPasswordField(20);
 
     public AuthWindow() {
-        setTitle("Highway Star - Login");
+        setTitle("Highway Star - Authentication");
         setLayout(new BorderLayout());
-        setSize(300, 180);
+        setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // Main form panel
         JPanel formPanel = new JPanel(new GridLayout(3, 2, 5, 5));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -33,7 +32,6 @@ public class AuthWindow extends JFrame {
 
         add(formPanel, BorderLayout.CENTER);
 
-        // Footer with underlined name (no links)
         JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel footerLabel = new JLabel("<html><center>Made with ❤️ by <u>Gabriel Ong</u>.</center></html>");
         footerPanel.add(footerLabel);
