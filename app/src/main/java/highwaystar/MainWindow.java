@@ -7,6 +7,8 @@ import org.jxmapviewer.*;
 import org.jxmapviewer.viewer.*;
 import com.google.firebase.database.*;
 import org.jxmapviewer.viewer.wms.*;
+import org.jxmapviewer.viewer.DefaultTileFactory;
+import org.jxmapviewer.OSMTileFactoryInfo;
 
 public class MainWindow extends JFrame {
     private int stepCount = 0;
@@ -39,12 +41,11 @@ public class MainWindow extends JFrame {
 
         // Map Panel with OpenStreetMap
         mapKit = new JXMapKit();
-        WMSService wmsService = new WMSService();
-        wmsService.setBaseUrl("https://tile.openstreetmap.org");
-        WMSTileFactory tileFactory = new WMSTileFactory(wmsService);
+        TileFactoryInfo info = new OSMTileFactoryInfo();
+        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         mapKit.setTileFactory(tileFactory);
-        mapKit.setZoom(14);
-        mapKit.setAddressLocation(new GeoPosition(1.3521, 103.8198)); // Singapore
+        mapKit.setZoom(12);
+        mapKit.setAddressLocation(new GeoPosition(1.3521, 103.8198));
         
         // Steps Panel
         JPanel stepsPanel = new JPanel(new BorderLayout());

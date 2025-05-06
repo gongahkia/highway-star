@@ -19,6 +19,7 @@ dependencies {
     implementation 'org.jxmapviewer:jxmapviewer2:2.6'
     implementation 'com.google.firebase:firebase-admin:9.2.0'
     implementation 'com.formdev:flatlaf:3.4.1'
+    implementation 'org.jxmapviewer:jxmapviewer2:2.6'
     implementation 'org.slf4j:slf4j-nop:2.0.12'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
 }
