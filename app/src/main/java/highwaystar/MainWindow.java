@@ -16,12 +16,12 @@ public class MainWindow extends JFrame {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton logoutBtn = new JButton("Logout");
-        logoutBtn.addActionListener(e -> {
-            new AuthWindow().setVisible(true);
+        JButton profileBtn = new JButton("Profile");
+        profileBtn.addActionListener(e -> {
+            new ProfileWindow(uid).setVisible(true);
             this.dispose();
         });
-        topPanel.add(logoutBtn);
+        topPanel.add(profileBtn);
         add(topPanel, BorderLayout.NORTH);
 
         JLabel stepsLabel = new JLabel("Steps: 0", SwingConstants.CENTER);
