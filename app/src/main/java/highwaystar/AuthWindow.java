@@ -1,7 +1,10 @@
 package highwaystar;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URI;
+import javax.swing.*;
 import com.google.firebase.auth.*;
 
 public class AuthWindow extends JFrame {
@@ -10,23 +13,55 @@ public class AuthWindow extends JFrame {
 
     public AuthWindow() {
         setTitle("Highway Star - Login");
-        setLayout(new GridLayout(3, 2));
+        setLayout(new BorderLayout());
+        setSize(300, 180);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        // Main form panel
+        JPanel formPanel = new JPanel(new GridLayout(3, 2, 5, 5));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        add(new JLabel("Email:"));
-        add(emailField);
-        add(new JLabel("Password:"));
-        add(passField);
+        formPanel.add(new JLabel("Email:"));
+        formPanel.add(emailField);
+        formPanel.add(new JLabel("Password:"));
+        formPanel.add(passField);
         
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> registerUser());
-        add(registerBtn);
+        formPanel.add(registerBtn);
 
         JButton loginBtn = new JButton("Login");
         loginBtn.addActionListener(e -> loginUser());
-        add(loginBtn);
+        formPanel.add(loginBtn);
 
-        setSize(300, 150);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        add(formPanel, BorderLayout.CENTER);
+
+        // Footer with links
+        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel footerLabel = new JLabel("<html><center>Made with ❤️ by <u>Gabriel Ong</u>. Source code <u>here</u>.</center></html>");
+        footerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        footerLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    int clickX = e.getX();
+                    // Gabriel Ong link (first part of text)
+                    if(clickX < 100) { 
+                        Desktop.getDesktop().browse(new URI("https://gabrielongzm.com"));
+                    } 
+                    // GitHub link
+                    else { 
+                        Desktop.getDesktop().browse(new URI("https://github.com/gongahkia/highway-star"));
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        footerPanel.add(footerLabel);
+        add(footerPanel, BorderLayout.SOUTH);
     }
 
     private void registerUser() {
@@ -34,6 +69,7 @@ public class AuthWindow extends JFrame {
             UserRecord.CreateRequest req = new UserRecord.CreateRequest()
                 .setEmail(emailField.getText())
                 .setPassword(new String(passField.getPassword()));
+            
             UserRecord user = FirebaseAuth.getInstance().createUser(req);
             JOptionPane.showMessageDialog(this, "Registration successful!");
             new MainWindow(user.getUid()).setVisible(true);

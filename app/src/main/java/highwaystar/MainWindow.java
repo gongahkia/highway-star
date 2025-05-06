@@ -1,7 +1,9 @@
 package highwaystar;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import java.net.URI;
+import java.awt.Desktop;
 import com.google.firebase.database.*;
 
 public class MainWindow extends JFrame {
