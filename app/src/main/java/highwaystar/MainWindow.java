@@ -1,72 +1,44 @@
 package highwaystar;
 
-import com.google.firebase.database.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import com.google.firebase.database.*;
 
 public class MainWindow extends JFrame {
-    private JLabel stepsLabel;
-    private int currentSteps = 0;
+    private int stepCount = 0;
+    private final DatabaseReference userRef;
 
-    public MainWindow() {
+    public MainWindow(String uid) {
+        userRef = Main.dbRef.child("users").child(uid);
+        loadInitialSteps();
+        
         setTitle("Highway Star - Dashboard");
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
         
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        
-        stepsLabel = new JLabel("Steps: 0", SwingConstants.CENTER);
+        JLabel stepsLabel = new JLabel("Steps: 0", SwingConstants.CENTER);
         stepsLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        panel.add(stepsLabel, BorderLayout.CENTER);
+        add(stepsLabel, BorderLayout.CENTER);
         
-        JPanel controlPanel = new JPanel(new FlowLayout());
-        JButton addStepBtn = new JButton("Add Step");
-        JButton logoutBtn = new JButton("Logout");
+        JButton stepBtn = new JButton("Add Step");
+        stepBtn.addActionListener(e -> updateSteps(stepsLabel));
+        add(stepBtn, BorderLayout.SOUTH);
         
-        addStepBtn.addActionListener(this::handleStep);
-        logoutBtn.addActionListener(e -> System.exit(0));
-        
-        controlPanel.add(addStepBtn);
-        controlPanel.add(logoutBtn);
-        panel.add(controlPanel, BorderLayout.SOUTH);
-        
-        loadUserData();
-        add(panel);
+        setSize(400, 200);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private void handleStep(ActionEvent e) {
-        currentSteps++;
-        stepsLabel.setText("Steps: " + currentSteps);
-        updateFirebaseData();
-    }
-
-    private void loadUserData() {
-        Main.dbRef.child("users").child(Main.currentUserUID).addListenerForSingleValueEvent(
-            new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        currentSteps = dataSnapshot.child("totalSteps").getValue(Integer.class);
-                        stepsLabel.setText("Steps: " + currentSteps);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    JOptionPane.showMessageDialog(MainWindow.this, "Database error: " + error.getMessage());
-                }
+    private void loadInitialSteps() {
+        userRef.child("steps").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                stepCount = snapshot.exists() ? snapshot.getValue(Integer.class) : 0;
             }
-        );
+            @Override public void onCancelled(DatabaseError error) {}
+        });
     }
 
-    private void updateFirebaseData() {
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("totalSteps", currentSteps);
-        updates.put("lastUpdated", ServerValue.TIMESTAMP);
-        
-        Main.dbRef.child("users").child(Main.currentUserUID).updateChildrenAsync(updates);
+    private void updateSteps(JLabel label) {
+        userRef.child("steps").setValueAsync(++stepCount);
+        label.setText("Steps: " + stepCount);
     }
 }

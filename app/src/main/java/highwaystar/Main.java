@@ -5,25 +5,22 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.*;
 
-import javax.swing.*;
-
 public class Main {
     public static DatabaseReference dbRef;
-    public static String currentUserUID;
+    
     public static void main(String[] args) {
         try {
-            FirebaseOptions options = new FirebaseOptions.Builder()
+            FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(
                     Main.class.getResourceAsStream("/serviceAccountKey.json")))
-                .setDatabaseUrl("https://YOUR_PROJECT_ID.firebaseio.com")
+                .setDatabaseUrl("https://YOUR_PROJECT.firebaseio.com")
                 .build();
+            
             FirebaseApp.initializeApp(options);
             dbRef = FirebaseDatabase.getInstance().getReference();
-            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatDarkLaf());
-            SwingUtilities.invokeLater(() -> new AuthWindow().setVisible(true));
-            
+            new AuthWindow().setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Firebase Init Failed: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
