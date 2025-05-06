@@ -34,9 +34,10 @@ public class AuthWindow extends JFrame {
             UserRecord.CreateRequest req = new UserRecord.CreateRequest()
                 .setEmail(emailField.getText())
                 .setPassword(new String(passField.getPassword()));
-            
-            FirebaseAuth.getInstance().createUser(req);
+            UserRecord user = FirebaseAuth.getInstance().createUser(req);
             JOptionPane.showMessageDialog(this, "Registration successful!");
+            new MainWindow(user.getUid()).setVisible(true);
+            this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
