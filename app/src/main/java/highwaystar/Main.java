@@ -13,7 +13,7 @@ public class Main {
             FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(
                     Main.class.getResourceAsStream("/serviceAccountKey.json")))
-                .setDatabaseUrl("https://YOUR_PROJECT.firebaseio.com")
+                .setDatabaseUrl("https://highway-star-a0d94.firebaseio.com")
                 .build();
             
             FirebaseApp.initializeApp(options);

@@ -4,7 +4,9 @@
 
 ## Stack
 
-...
+* *Frontend*: ...
+* *Backend*: ...
+* *DB*: [Firebase Realtime Database](https://firebase.google.com/docs/database)
 
 ## Architecture
 
@@ -15,6 +17,10 @@
 ...
 
 ## Usage
+
+```console
+$ 
+```
 
 ...
 
