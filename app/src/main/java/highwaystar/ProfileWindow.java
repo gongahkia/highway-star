@@ -21,12 +21,19 @@ public class ProfileWindow extends JFrame {
         setSize(400, 300);
         setLocationRelativeTo(null);
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        // Top panel with both Back and Logout buttons, right-aligned
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        JButton backBtn = new JButton("Back to Dashboard");
+        backBtn.addActionListener(e -> {
+            new MainWindow(uid).setVisible(true);
+            this.dispose();
+        });
         JButton logoutBtn = new JButton("Logout");
         logoutBtn.addActionListener(e -> {
             new AuthWindow().setVisible(true);
             this.dispose();
         });
+        topPanel.add(backBtn);
         topPanel.add(logoutBtn);
         add(topPanel, BorderLayout.NORTH);
 
@@ -53,15 +60,6 @@ public class ProfileWindow extends JFrame {
         changePassBtn.addActionListener(e -> changePassword());
         centerPanel.add(new JLabel()); // Empty cell
         centerPanel.add(changePassBtn);
-
-        // Add Back to Dashboard button
-        JButton backBtn = new JButton("Back to Dashboard");
-        backBtn.addActionListener(e -> {
-            new MainWindow(uid).setVisible(true);
-            this.dispose();
-        });
-        centerPanel.add(new JLabel()); // Empty cell for alignment
-        centerPanel.add(backBtn);
 
         add(centerPanel, BorderLayout.CENTER);
 

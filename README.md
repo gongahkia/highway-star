@@ -2,7 +2,9 @@
 
 # `Highway Star`
 
-...
+*"We have [Strava](https://www.strava.com/) at home."*
+
+Made to refamiliarise myself with [Java and friends](#stack).
 
 ## Stack
 
@@ -12,7 +14,7 @@
 
 ## Architecture
 
-...
+![](./asset/reference/architecture.png)
 
 ## Screenshots
 
