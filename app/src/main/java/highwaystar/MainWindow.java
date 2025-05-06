@@ -2,8 +2,6 @@ package highwaystar;
 
 import java.awt.*;
 import javax.swing.*;
-import java.net.URI;
-import java.awt.Desktop;
 import com.google.firebase.database.*;
 
 public class MainWindow extends JFrame {
@@ -13,19 +11,32 @@ public class MainWindow extends JFrame {
     public MainWindow(String uid) {
         userRef = Main.dbRef.child("users").child(uid);
         loadInitialSteps();
-        
+
         setTitle("Highway Star - Dashboard");
         setLayout(new BorderLayout());
-        
+
+        // Top panel for logout button
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton logoutBtn = new JButton("Logout");
+        logoutBtn.addActionListener(e -> {
+            new AuthWindow().setVisible(true);
+            this.dispose();
+        });
+        topPanel.add(logoutBtn);
+        add(topPanel, BorderLayout.NORTH);
+
+        // Steps label
         JLabel stepsLabel = new JLabel("Steps: 0", SwingConstants.CENTER);
         stepsLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(stepsLabel, BorderLayout.CENTER);
-        
+
+        // Add Step button
         JButton stepBtn = new JButton("Add Step");
         stepBtn.addActionListener(e -> updateSteps(stepsLabel));
         add(stepBtn, BorderLayout.SOUTH);
-        
+
         setSize(400, 200);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -34,6 +45,14 @@ public class MainWindow extends JFrame {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 stepCount = snapshot.exists() ? snapshot.getValue(Integer.class) : 0;
+                // Update label after loading from DB
+                SwingUtilities.invokeLater(() -> {
+                    for (Component c : getContentPane().getComponents()) {
+                        if (c instanceof JLabel) {
+                            ((JLabel) c).setText("Steps: " + stepCount);
+                        }
+                    }
+                });
             }
             @Override public void onCancelled(DatabaseError error) {}
         });
