@@ -1,16 +1,20 @@
-[![](https://img.shields.io/badge/highway_star_1.0.0-passing-green)](https://github.com/gongahkia/highway-star/releases/tag/1.0.0) 
+[![](https://img.shields.io/badge/highway_star_1.0.0-passing-dark_green)](https://github.com/gongahkia/highway-star/releases/tag/1.0.0)
+[![](https://img.shields.io/badge/highway_star_2.0.0-passing-green)](https://github.com/gongahkia/highway-star/releases/tag/2.0.0)
 
 # `Highway Star`
 
-*"We have [Strava](https://www.strava.com/) at home"*, featuring IP-based geolocation, activity recording and basic account management.
+*"We have [Strava](https://www.strava.com/) at home"*.
 
 Made to refamiliarise myself with [Java and friends](#stack).
 
 ## Stack
 
-* *Frontend*: [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/index.html)
-* *Backend*: [Java](https://www.java.com/en/)
-* *DB*: [Firebase Realtime Database](https://firebase.google.com/docs/database)
+* *Frontend*: [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/index.html) with [FlatLaf](https://www.formdev.com/flatlaf/)
+* *Backend*: [Java 17+](https://www.java.com/en/)
+* *Database*: [Firebase Realtime Database](https://firebase.google.com/docs/database)
+* *Maps*: [JXMapViewer2](https://github.com/msteiger/jxmapviewer2) with OpenStreetMap
+* *Geolocation*: [MaxMind GeoIP2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data)
+* *Build Tool*: [Gradle](https://gradle.org/)
 
 ## Architecture
 
@@ -42,22 +46,51 @@ Made to refamiliarise myself with [Java and friends](#stack).
 
 ## Usage
 
-First create a [Google Developer Account](https://developers.google.com/).
+### Prerequisites
+- Java 17 or higher
+- Gradle (included via wrapper)
+- Firebase account
+- (Optional) MaxMind GeoLite2 database for IP geolocation
 
-Then *Create a Firebase project* in [Firebase Console](https://console.firebase.google.com) and navigate to *Project Overview > Project settings > Service accounts > Java*. 
+### Firebase Setup
 
-*Generate new private key* and save the downloaded file at the filepath `./highway-star/app/src/main/resources/serviceAccountKey.json`.
+1. Create a [Google Developer Account](https://developers.google.com/)
+2. Create a Firebase project in [Firebase Console](https://console.firebase.google.com)
+3. Navigate to *Project Overview > Project settings > Service accounts > Java*
+4. Click *Generate new private key*
+5. Save the downloaded file to `./highway-star/app/src/main/resources/serviceAccountKey.json`
+6. Update the database URL in `Config.java` if needed (default: `https://highway-star-a0d94.firebaseio.com`)
 
-Then run the below.
+### GeoIP Setup (Optional)
+
+For IP-based geolocation to work:
+
+1. Download GeoLite2 City database from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data)
+2. Extract `GeoLite2-City.mmdb`
+3. Place it in `./highway-star/app/src/main/resources/`
+
+Without this file, the app will default to Singapore coordinates.
+
+### Building and Running
 
 ```console
 $ git clone https://github.com/gongahkia/highway-star
-$ cd highway-star && make
+$ cd highway-star
+$ make
 ```
 
-## Other notes
+Or using Gradle directly:
 
-[No hate](./asset/logo/none.jpg), but respectfully, [Java Swing]() is [so ugly](https://www.reddit.com/r/javahelp/comments/173nl4d/getting_really_frustrated_with_swing_is_there_a/). I might really have to take [Reddit's advice](https://www.reddit.com/r/JavaFX/comments/18n3sjt/why_javafx_is_still_used_in_2023/) and look into [JavaFX](https://openjfx.io/) instead.
+```console
+$ ./gradlew run
+```
+
+To build a distributable JAR:
+
+```console
+$ ./gradlew build
+$ java -jar app/build/libs/app.jar
+```
 
 ## Reference
 

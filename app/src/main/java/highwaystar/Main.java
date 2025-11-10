@@ -1,26 +1,42 @@
 package highwaystar;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.database.*;
+import highwaystar.services.FirebaseService;
+import highwaystar.ui.MainFrame;
+
+import javax.swing.*;
 
 public class Main {
-    public static DatabaseReference dbRef;
-    
     public static void main(String[] args) {
+        // Set system properties for better UI rendering
+        System.setProperty("sun.java2d.opengl", "true");
+
         try {
-            FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(
-                    Main.class.getResourceAsStream("/serviceAccountKey.json")))
-                .setDatabaseUrl("https://highway-star-a0d94.firebaseio.com")
-                .build();
-            
-            FirebaseApp.initializeApp(options);
-            dbRef = FirebaseDatabase.getInstance().getReference();
-            new AuthWindow().setVisible(true);
+            // Initialize Firebase
+            FirebaseService.getInstance().initialize();
+
+            // Launch UI on EDT
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    MainFrame frame = new MainFrame();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null,
+                        "Failed to start application: " + e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                "Failed to initialize Firebase: " + e.getMessage() +
+                "\n\nPlease ensure serviceAccountKey.json is in the resources folder.",
+                "Initialization Error",
+                JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
     }
 }
